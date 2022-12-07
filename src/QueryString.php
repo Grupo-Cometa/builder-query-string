@@ -55,7 +55,7 @@ class QueryString
         return $arrayString;
     }
 
-    private  function queryConstruct($paramns)
+    private function queryConstruct($paramns)
     {
         $keyIntersect = $this->getKeyIntersectRequestFillableModel($paramns);
 
@@ -65,7 +65,7 @@ class QueryString
         }
     }
 
-    protected  function whereInOrWhereOrwhereBetWeen($key, $value)
+    protected function whereInOrWhereOrwhereBetWeen($key, $value)
     {
         if (is_array($value)) return $this->whereInOrWhereBetWeen($key, $value);
         return $this->whereOrWhreLike($key,$value);
@@ -78,13 +78,13 @@ class QueryString
         return $this->builder->where($key, $this->empytOrNullToNull($value));
     }
 
-    private  function empytOrNullToNull($value)
+    private function empytOrNullToNull($value)
     {
         if ($value == 'null' || $value == '') return null;
         return $value;
     }
 
-    protected  function whereInOrWhereBetWeen($key, array $value)
+    protected function whereInOrWhereBetWeen($key, array $value)
     {
         if (count($value) != 2) return $this->builder->whereIn($key, $value);
         if ($this->twoPositionIsDate($value[0], $value[1])) {
@@ -94,13 +94,13 @@ class QueryString
         return  $this->builder->whereIn($key, $value);
     }
 
-    protected  function twoPositionIsDate($firstDate, $lastDate)
+    protected function twoPositionIsDate($firstDate, $lastDate)
     {
         $regexDate = '/^\d{2}(-|\/)\d{2}(-|\/)\d{4}|^\d{4}(-|\/)\d{2}(-|\/)\d{2}/i';
         return preg_match($regexDate, $firstDate) && preg_match($regexDate, $lastDate);
     }
 
-    protected  function invetDateIfFirstLargerLast($firstDate, $lastDate)
+    protected function invetDateIfFirstLargerLast($firstDate, $lastDate)
     {
         if (strtotime($firstDate) > strtotime($lastDate)) {
             $aux = $lastDate;

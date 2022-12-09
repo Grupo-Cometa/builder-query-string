@@ -1,6 +1,6 @@
 <?php
 
-namespace Cometa\Builder;
+namespace GrupoCometa\Builder;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;

@@ -75,7 +75,7 @@ class QueryString
 
     protected function whereOrWhreLike($key, $value){
         if(preg_match("/%/",$value, $matches)){
-            return $this->builder->where($key,'ilike',$this->empytOrNullToNull($value));
+            return $this->builder->where($key,'like',$this->empytOrNullToNull($value));
         }
         return $this->builder->where($key, $this->empytOrNullToNull($value));
     }

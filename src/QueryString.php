@@ -5,6 +5,7 @@ namespace GrupoCometa\Builder;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
@@ -26,7 +27,7 @@ class QueryString
             $this->builder = $model;
             return;
         }
-        if ($model instanceof HasManyThrough || $model instanceof HasMany || $model instanceof BelongsTo || $model instanceof HasOne) {
+        if ($model instanceof HasManyThrough || $model instanceof HasMany || $model instanceof BelongsTo || $model instanceof HasOne || $model instanceof BelongsToMany) {
             $class = get_class($model->getRelated());
             $this->model = new $class();
             $this->builder = $model;

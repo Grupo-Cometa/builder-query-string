@@ -113,7 +113,7 @@ class QueryString
         return [$firstDate, $lastDate];
     }
 
-    public function getBuilder(): Builder | HasMany | BelongsTo | HasOne
+    public function getBuilder(): Builder | HasMany | BelongsTo | HasOne | BelongsToMany
     {
         return $this->builder;
     }

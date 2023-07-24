@@ -20,6 +20,6 @@
     },
     "require": {
         "php": ">=8.0",
-        "illuminate/database": ">=9.43"
+        "illuminate/database": ">=8.83"
     }
 }

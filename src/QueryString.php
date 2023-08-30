@@ -70,11 +70,16 @@ class QueryString
     protected  function whereInOrWhereOrwhereBetWeen($key, $value)
     {
         if (is_array($value)) return $this->whereInOrWhereBetWeen($key, $value);
-        return $this->whereOrWhreLike($key,$value);
+        return $this->whereOrWhreLikeOrWhereNotNull($key,$value);
 
     }
 
-    protected function whereOrWhreLike($key, $value){
+    protected function whereOrWhreLikeOrWhereNotNull($key, $value)
+    {
+        if ($value == 'notnull') {
+            return $this->builder->whereNotNull($key);
+        }
+        
         if(preg_match("/%/",$value, $matches)){
             return $this->builder->where($key,'like',$this->empytOrNullToNull($value));
         }

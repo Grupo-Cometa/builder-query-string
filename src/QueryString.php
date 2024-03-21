@@ -44,6 +44,15 @@ class QueryString
         $this->builder = $model::select();
     }
 
+    private function where($key, $operator, $value)
+    {
+        if(!$this->model->caseSensitive())
+        {
+            return $this->builder->whereRaw("UPPER($key) $operator UPPER('$value')");
+        }
+        return $this->builder->where($key, $value);
+    }
+
     protected function getKeyIntersectRequestFillableModel($paramns): array
     {
         $valuesInKeys = array_fill_keys($this->model->getFillable(), '1');
@@ -81,10 +90,11 @@ class QueryString
             return $this->builder->whereNotNull($key);
         }
         
-        if(preg_match("/%/",$value, $matches)){
-            return $this->builder->where($key,'like',$this->empytOrNullToNull($value));
+        if(preg_match("/\*/",$value, $matches)){
+            $value = str_replace('*', '%', $value);
+            return $this->where($key,'like',$this->empytOrNullToNull($value));
         }
-        return $this->builder->where($key, $this->empytOrNullToNull($value));
+        return $this->where($key, '=' ,$this->empytOrNullToNull($value));
     }
 
     private  function empytOrNullToNull($value)

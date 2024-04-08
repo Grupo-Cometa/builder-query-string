@@ -46,7 +46,7 @@ class QueryString
 
     private function where($key, $operator, $value)
     {
-        if(!$this->model->caseSensitive())
+        if(!$this->model->caseSensitive() && !preg_match('/\d/', $value))
         {
             return $this->builder->whereRaw("UPPER($key) $operator UPPER('$value')");
         }

@@ -46,11 +46,11 @@ class QueryString
 
     private function where($key, $operator, $value)
     {
-        if(!$this->model->caseSensitive() && !preg_match('/\d/', $value))
+        if(!$this->model->caseSensitive() && !preg_match('/[0-9]/', $value))
         {
             return $this->builder->whereRaw("UPPER($key) $operator UPPER('$value')");
         }
-        return $this->builder->where($key, $value);
+        return $this->builder->where($key,$operator, $value);
     }
 
     protected function getKeyIntersectRequestFillableModel($paramns): array
